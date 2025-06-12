@@ -1,24 +1,22 @@
-//
-//  ContentView.swift
-//  MenuApp
-//
-//  Created by emre argana on 12.06.2025.
-//
-
 import SwiftUI
+import Foundation
 
 struct ContentView: View {
-    var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
-    }
-}
+    let menu = Bundle.main.decode([MenuSection].self, from: "menu.json")
 
-#Preview {
-    ContentView()
+    var body: some View {
+        NavigationView {
+            List {
+                ForEach(menu, id: \.id) { section in
+                    Section(header: Text(section.name)) {
+                        ForEach(section.items, id: \.id) { item in
+                            Text(item.name)
+                        }
+                    }
+                }
+            }
+            .listStyle(.grouped)
+            .navigationTitle("Menu")
+        }
+    }
 }
