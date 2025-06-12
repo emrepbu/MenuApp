@@ -15,8 +15,11 @@ struct ContentView: View {
                     }
                 }
             }
-            .listStyle(.grouped)
             .navigationTitle("Menu")
         }
     }
+}
+
+#Preview {
+    ContentView()
 }
