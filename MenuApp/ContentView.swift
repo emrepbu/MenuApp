@@ -10,7 +10,7 @@ struct ContentView: View {
                 ForEach(menu, id: \.id) { section in
                     Section(header: Text(section.name)) {
                         ForEach(section.items, id: \.id) { item in
-                            Text(item.name)
+                            ItemRow(item: item)
                         }
                     }
                 }
@@ -20,6 +20,27 @@ struct ContentView: View {
     }
 }
 
-#Preview {
+struct ItemRow: View {
+    var item: MenuItem
+    
+    var body: some View {
+        HStack {
+            Image(item.thumbnailImage)
+            
+            VStack(alignment: .leading) {
+                Text(item.name)
+                Text("\(item.price, format: .currency(code: "TRY"))")
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .border(.green)
+    }
+}
+
+#Preview("Main") {
     ContentView()
+}
+
+#Preview("ItemRow") {
+    ItemRow(item: MenuItem.example)
 }
