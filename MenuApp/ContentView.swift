@@ -10,7 +10,11 @@ struct ContentView: View {
                 ForEach(menu, id: \.id) { section in
                     Section(header: Text(section.name)) {
                         ForEach(section.items, id: \.id) { item in
-                            ItemRow(item: item)
+                            NavigationLink {
+                                ItemDetail(sectionName: section.name, item: item)
+                            } label: {
+                                ItemRow(item: item)
+                            }
                         }
                     }
                 }
