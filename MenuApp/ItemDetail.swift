@@ -4,6 +4,9 @@ struct ItemDetail: View {
     let sectionName: String
     let item: MenuItem
     
+    @EnvironmentObject var order: Order
+    @Namespace private var namespace
+
     let colors: [String: Color] = [
         "D": .purple,
         "G": .black,
@@ -48,7 +51,7 @@ struct ItemDetail: View {
                     }
                     
                     Spacer()
-                    
+
                     ForEach(item.restrictions, id: \.self) { restriction in
                         Text(restriction)
                             .font(.caption)
@@ -63,6 +66,10 @@ struct ItemDetail: View {
                 
                 Divider()
                 
+                Button("Order This") {
+                    order.add(item: item)
+                }
+                
                 Text(item.description)
                     .font(.body)
                     .padding(.top)
@@ -76,4 +83,5 @@ struct ItemDetail: View {
 
 #Preview {
     ItemDetail(sectionName: "Main", item: MenuItem.example)
+        .environmentObject(Order())
 }
