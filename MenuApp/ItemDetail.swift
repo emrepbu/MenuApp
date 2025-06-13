@@ -14,18 +14,34 @@ struct ItemDetail: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
-                Image(item.mainImage)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(maxWidth: .infinity, maxHeight: 200)
-                    .clipShape(RoundedRectangle(cornerRadius: 16))
+                ZStack(alignment: .bottomTrailing) {
+                    Image(item.mainImage)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(maxWidth: .infinity, maxHeight: 200)
+                        .clipShape(RoundedRectangle(cornerRadius: 16))
+                    
+                    Text("Photo: \(item.photoCredit)")
+                        .padding(4)
+                        .background(.white)
+                        .font(.caption)
+                        .foregroundStyle(.black)
+                        .clipShape(
+                            .rect(
+                                topLeadingRadius: 6,
+                                bottomLeadingRadius: 0,
+                                bottomTrailingRadius: 6,
+                                topTrailingRadius: 0
+                            )
+                        )
+                }
                 
                 HStack {
                     VStack(alignment: .leading) {
                         Text(item.name)
                             .font(.title)
                             .fontWeight(.bold)
-
+                        
                         Text("\(item.price, format: .currency(code: "TRY"))")
                             .font(.headline)
                             .foregroundColor(.secondary)
@@ -44,9 +60,9 @@ struct ItemDetail: View {
                     }
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
-
+                
                 Divider()
-
+                
                 Text(item.description)
                     .font(.body)
                     .padding(.top)
@@ -54,7 +70,7 @@ struct ItemDetail: View {
             .padding()
         }
         .navigationTitle(sectionName)
-        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarTitleDisplayMode(.large)
     }
 }
 
