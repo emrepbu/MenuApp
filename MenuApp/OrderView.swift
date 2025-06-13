@@ -18,14 +18,14 @@ struct OrderView : View {
                         HStack {
                             Text(item.name)
                             Spacer()
-                            Text("$\(item.price)")
+                            Text("\(item.price, format: .currency(code: "TRY"))")
                         }
                     }
                 }
 
                 Section {
                     NavigationLink("Place Order") {
-                        Text("Check out")
+                        CheckoutView()
                     }
                 }
             }
