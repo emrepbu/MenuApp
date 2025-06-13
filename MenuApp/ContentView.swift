@@ -6,20 +6,48 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView {
-            List {
-                ForEach(menu, id: \.id) { section in
-                    Section(header: Text(section.name)) {
-                        ForEach(section.items, id: \.id) { item in
-                            NavigationLink {
-                                ItemDetail(sectionName: section.name, item: item)
-                            } label: {
-                                ItemRow(item: item)
-                            }
-                        }
-                    }
-                }
+            MenuListView(menu: menu)
+                .navigationTitle("Menu")
+        }
+    }
+}
+
+struct MenuListView: View {
+    let menu: [MenuSection]
+    
+    var body: some View {
+        List {
+            ForEach(menu, id: \.id) { section in
+                MenuSectionView(section: section)
             }
-            .navigationTitle("Menu")
+        }
+    }
+}
+
+struct MenuSectionView: View {
+    let section: MenuSection
+    
+    var body: some View {
+        Section(header: Text(section.name)) {
+            ForEach(section.items, id: \.id) { item in
+                MenuItemNavigationLink(
+                    item: item,
+                    sectionName: section.name
+                )
+            }
+        }
+    }
+}
+
+struct MenuItemNavigationLink: View {
+    let item: MenuItem
+    let sectionName: String
+    
+    var body: some View {
+        NavigationLink {
+            ItemDetail(sectionName: sectionName, item: item)
+        } label: {
+            ItemRow(item: item)
         }
     }
 }
